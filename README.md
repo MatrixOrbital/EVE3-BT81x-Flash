@@ -23,7 +23,7 @@ Eve Asset Builder provides no method of ordering files within the "blob" so some
 5) Include the same files again including aaoutput.map and generate flash a third time.
   -- Now, the file aaoutput.map will be found at 4096 and that file now includes itself with correct offsets.
 
-- Designed for Matrix Orbital EVE2 SPI TFT Displays
+- Designed for Matrix Orbital EVE2 SPI TFT Displays incorporating BT81x chips and QSPI flash (COMING SOON!)
 
   https://www.matrixorbital.com/ftdi-eve
 
