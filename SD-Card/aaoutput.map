@@ -1,0 +1,12 @@
+unified.blob : 0      : 4096
+aaoutput.map : 4096   : 384
+BanffWin.raw : 4480   : 96000
+Calgfall.raw : 100480 : 96000
+donuts.raw   : 196480 : 96000
+grnleaf.raw  : 292480 : 96000
+jupiter.raw  : 388480 : 96000
+leaves.raw   : 484480 : 96000
+LLouise.raw  : 580480 : 96000
+rockies.raw  : 676480 : 96000
+skyline.raw  : 772480 : 96000
+snowmont.raw : 868480 : 96000

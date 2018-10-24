@@ -1,6 +1,3 @@
-# Eve-BT81x-Flash
-An Arduino example of using BT81x attached flash including file transfer from SD card to flash.
-
 This code contains functions to perform the following operations:
 
 Read a file off SD card and write it to Eve connected flash.
