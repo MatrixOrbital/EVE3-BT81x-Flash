@@ -2,7 +2,7 @@ This code contains functions to perform the following operations:
 
 - Read a file off SD card and write it to Eve connected flash.
 - Parse Eve flash and store file offsets - flash addresses - of files.
-- An example of displaying bimaps (ASTC format) directly out of flash.
+- An example of displaying bitmaps (ASTC format) directly out of flash.
 
 To be used in conjuction with Eve Asset Builder software from Bridgetek.
 
