@@ -23,9 +23,9 @@ Eve Asset Builder provides no method of ordering files within the "blob" so some
 5) Include the same files again including aaoutput.map and generate flash a third time.
   -- Now, the file aaoutput.map will be found at 4096 and that file now includes itself with correct offsets.
 
-- Designed for Matrix Orbital EVE2 SPI TFT Displays incorporating BT81x chips and QSPI flash (COMING SOON!)
+- Designed for Matrix Orbital EVE2 SPI TFT Displays incorporating BT81x chips and QSPI flash
 
-  https://www.matrixorbital.com/ftdi-eve
+  https://www.matrixorbital.com/ftdi-eve/eve-bt815
 
 - This code makes use of the Matrix Orbital EVE2 Library found here: 
 
@@ -43,6 +43,8 @@ Eve Asset Builder provides no method of ordering files within the "blob" so some
   - Audio amplifier and speaker for audio feedback
   - SD card holder
   - Additionally, the shield board is automatically level shifted for 5V Arduino and works with 3.3V Parallax Propeller ASC+ 
+  
+  https://www.matrixorbital.com/accessories/interface-module/eve2-shield
   
   Support Forums
   
