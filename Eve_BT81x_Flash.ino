@@ -3,7 +3,7 @@
 #include <Wire.h>
 #include <stdlib.h>
 #include "Eve2_81x.h"           
-#include "MatrixEve2Conf.h"      // Header for EVE2 Display configuration settings
+#include "MatrixEve2Conf.h"      // Header for EVE Display configuration settings
 #include "process.h"
 #include "Arduino_AL.h"
 
@@ -73,7 +73,7 @@ void GlobalInit(void)
   Wire.begin();                          // Setup I2C bus
 
   Serial.begin(115200);                  // Setup serial port for debug
-  while (!Serial) {;}                    // wait for serial port to connect.
+  while (!Serial) {;}                    // Wait for serial port to connect.
   
   // Matrix Orbital Eve display interface initialization
   pinMode(EvePDN_PIN, OUTPUT);            // Pin setup as output for Eve PDN pin.
