@@ -1,4 +1,4 @@
-// Eve2 Processor Agnostic Library (Condensed)
+// EVE Processor Agnostic Library (Condensed)
 //
 // This "library" consists of the files "Eve2_81x.c" and "Eve2_81x.h".
 //
@@ -37,7 +37,7 @@
 
 #include <stdint.h>              // Find integer types like "uint8_t"  
 #include "Eve2_81x.h"            // Header for this file with prototypes, defines, and typedefs
-#include "MatrixEve2Conf.h"      // Header for this EVE2 Display configuration settings
+#include "MatrixEve2Conf.h"      // Header for this EVE Display configuration settings
 
 // For Arduino, include this:
 #include "Arduino_AL.h"        // Include the hardware abstraction layer for your target processor
@@ -89,7 +89,7 @@ void FT81x_Init(void)
   wr8(REG_GPIOX + RAM_REG, 0);             // Set REG_GPIOX to 0 to turn off the LCD DISP signal
   wr8(REG_PCLK + RAM_REG, 0);              // Pixel Clock Output disable
 
-  // load parameters of the physical screen to the Eve
+  // load parameters of the physical screen to the EVE
   // All of these registers are 32 bits, but most bits are reserved, so only write what is actually used
   wr16(REG_HCYCLE + RAM_REG, HCYCLE);         // Set H_Cycle to 548
   wr16(REG_HOFFSET + RAM_REG, HOFFSET);       // Set H_Offset to 43
@@ -128,14 +128,14 @@ void FT81x_Init(void)
 //  Log("First screen written\n");
 }
 
-// Reset Eve chip via the hardware PDN line
+// Reset EVE chip via the hardware PDN line
 void Eve_Reset(void)
 {
   Eve_Reset_HW();
 }
 
 // *** Host Command - FT81X Embedded Video Engine Datasheet - 4.1.5 **********************************************
-// Host Command is a function for changing hardware related parameters of the Eve chip.  The name is confusing.
+// Host Command is a function for changing hardware related parameters of the EVE chip.  The name is confusing.
 // These are related to power modes and the like.  All defined parameters have HCMD_ prefix
 void HostCommand(uint8_t HCMD) 
 {
@@ -151,7 +151,7 @@ void HostCommand(uint8_t HCMD)
   SPI_Disable();
 }
 
-// *** Eve API Reference Definitions *****************************************************************************
+// *** EVE API Reference Definitions *****************************************************************************
 // FT81X Embedded Video Engine Datasheet 1.3 - Section 4.1.4, page 16
 // These are all functions related to writing / reading data of various lengths with a memory address of 32 bits
 // ***************************************************************************************************************
@@ -252,7 +252,7 @@ uint8_t rd8(uint32_t address)
   return (buf[0]);  
 }
 
-// *** Send_Cmd() - this is like cmd() in (some) Eve docs - sends 32 bits but does not update the write pointer ***
+// *** Send_Cmd() - this is like cmd() in (some) EVE docs - sends 32 bits but does not update the write pointer ***
 // FT81x Series Programmers Guide Section 5.1.1 - Circular Buffer (AKA "the FIFO" and "Command buffer" and "CoProcessor")
 // Don't miss section 5.3 - Interaction with RAM_DL
 void Send_CMD(uint32_t data)
@@ -524,7 +524,7 @@ void Cmd_Calibrate(uint32_t result)
 }
 
 // An interactive calibration screen is created and executed.  
-// New calibration values are written to the touch matrix registers of Eve.
+// New calibration values are written to the touch matrix registers of EVE.
 void Calibrate_Manual(uint16_t Width, uint16_t Height, uint16_t V_Offset, uint16_t H_Offset)
 {
   uint32_t displayX[3], displayY[3];
@@ -605,7 +605,7 @@ void Calibrate_Manual(uint16_t Width, uint16_t Height, uint16_t V_Offset, uint16
   count = 0;
   do
   {
-    wr32(REG_TOUCH_TRANSFORM_A + RAM_REG + (count * 4), TransMatrix[count]);  // Write to Eve config registers
+    wr32(REG_TOUCH_TRANSFORM_A + RAM_REG + (count * 4), TransMatrix[count]);  // Write to EVE config registers
 
 //    uint16_t ValH = TransMatrix[count] >> 16;
 //    uint16_t ValL = TransMatrix[count] & 0xFFFF;
@@ -667,7 +667,7 @@ void Wait4CoProFIFOEmpty(void)
       }while ( (ErrChar != 0) && (Offset < 128) ); // when the last stuffed character was null, we are done
       Log("\n");
 
-      // Eve is unhappy - needs a paddling.
+      // EVE is unhappy - needs a paddling.
       uint32_t Patch_Add = rd32(REG_COPRO_PATCH_PTR + RAM_REG);
       wr8(REG_CPU_RESET + RAM_REG, 1);
       wr8(REG_CMD_READ + RAM_REG, 0);
@@ -708,13 +708,13 @@ void CoProWrCmdBuf(const uint8_t *buff, uint32_t count)
     // You need to go around in loops taking 64 bytes at a time until all the data is gone.
     //
     // Most interactions with the FIFO are started and finished in one operation in an obvious fashion, but 
-    // here it is important to understand the difference between Eve RAM registers and Eve FIFO.  Even though 
+    // here it is important to understand the difference between EVE RAM registers and EVE FIFO.  Even though 
     // you are in the middle of a FIFO operation and filling the FIFO is an ongoing task, you are still free 
-    // to write and read non-FIFO registers on the Eve chip.
+    // to write and read non-FIFO registers on the EVE chip.
     //
     // Since the FIFO is 4K in size, but the RAM_G space is 1M in size, you can not, obviously, send all
-    // the possible RAM_G data through the FIFO in one step.  Also, since the Eve is not capable of updating
-    // it's own FIFO pointer as data is written, you will need to intermittently tell Eve to go process some
+    // the possible RAM_G data through the FIFO in one step.  Also, since the EVE is not capable of updating
+    // it's own FIFO pointer as data is written, you will need to intermittently tell EVE to go process some
     // FIFO in order to make room in the FIFO for more RAM_G data.    
     Wait4CoProFIFO(WorkBuffSz);                            // It is reasonable to wait for a small space instead of firing data piecemeal
 
@@ -740,7 +740,7 @@ void CoProWrCmdBuf(const uint8_t *buff, uint32_t count)
   }while (Remaining > 0);                                  // keep going as long as we still want more
 }
 
-// Write a block of data into Eve RAM space a byte at a time.
+// Write a block of data into EVE RAM space a byte at a time.
 // Return the last written address + 1 (The next available RAM address)
 uint32_t WriteBlockRAM(uint32_t Add, const uint8_t *buff, uint32_t count)
 {
