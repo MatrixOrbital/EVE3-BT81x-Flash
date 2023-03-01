@@ -1,4 +1,4 @@
-//User selectable configurations.
+//User selectable configurations, these work for EVE2, EVE3, EVE3x and EVE4x
 //#define EVE2_70
 #define EVE2_50
 //#define EVE2_43
