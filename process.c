@@ -1,9 +1,9 @@
 // Process.c is the application layer.  All function calls are hardware ambivalent.
 //
 #include <stdint.h>                // Find integer types like "uint8_t"  
-#include "Eve2_81x.h"              // Matrix Orbital Eve2 Driver
+#include "Eve2_81x.h"              // Matrix Orbital EVE Driver
 #include "Arduino_AL.h"            // include the hardware specific abstraction layer header for the specific hardware in use.
-#include "MatrixEve2Conf.h"        // Header for EVE2 Display configuration settings
+#include "MatrixEve2Conf.h"        // Header for EVE Display configuration settings
 #include "process.h"               // Every c file has it's header and this is the one for this file
 
 // The size of the buffer we use for data transfers.  It is a tiny buffer in Arduino Uno
@@ -113,7 +113,7 @@ bool FlashAttach(void)
 {
   Send_CMD(CMD_FLASHATTACH);
   UpdateFIFO();                                                       // Trigger the CoProcessor to start processing commands out of the FIFO
-  Wait4CoProFIFOEmpty();                                              // wait here until the coprocessor has read and executed every pending command.
+  Wait4CoProFIFOEmpty();                                              // Wait here until the coprocessor has read and executed every pending command.
 
   uint8_t FlashStatus = rd8(REG_FLASH_STATUS + RAM_REG);
   if (FlashStatus != FLASH_STATUS_BASIC)
@@ -128,7 +128,7 @@ bool FlashDetach(void)
 {
   Send_CMD(CMD_FLASHDETACH);
   UpdateFIFO();                                                       // Trigger the CoProcessor to start processing commands out of the FIFO
-  Wait4CoProFIFOEmpty();                                              // wait here until the coprocessor has read and executed every pending command.
+  Wait4CoProFIFOEmpty();                                              // Wait here until the coprocessor has read and executed every pending command.
 
   uint8_t FlashStatus = rd8(REG_FLASH_STATUS + RAM_REG);
   if (FlashStatus != FLASH_STATUS_DETACHED)
@@ -143,7 +143,7 @@ bool FlashFast(void)
 {
   Cmd_Flash_Fast();
   UpdateFIFO();                                                       // Trigger the CoProcessor to start processing commands out of the FIFO
-  Wait4CoProFIFOEmpty();                                              // wait here until the coprocessor has read and executed every pending command.
+  Wait4CoProFIFOEmpty();                                              // Wait here until the coprocessor has read and executed every pending command.
   
   uint8_t FlashStatus = rd8(REG_FLASH_STATUS + RAM_REG);
   if (FlashStatus != FLASH_STATUS_FULL)
@@ -159,7 +159,7 @@ bool FlashErase(void)
 //  Log("FlashErase: Erasing Flash\n");
   Send_CMD(CMD_FLASHERASE);
   UpdateFIFO();                                                       // Trigger the CoProcessor to start processing commands out of the FIFO
-  Wait4CoProFIFOEmpty();                                              // wait here until the coprocessor has read and executed every pending command.
+  Wait4CoProFIFOEmpty();                                              // Wait here until the coprocessor has read and executed every pending command.
 //  Log("FlashErase: Finished Erase\n");
 }
 
